@@ -9,23 +9,25 @@ class EtherealMailProvider implements IMailProvider {
     private client: Transporter;
 
     constructor() {
-        nodemailer.createTestAccount().then(account => {
+        nodemailer
+            .createTestAccount()
+            .then((account) => {
 
-            const transporter = nodemailer.createTransport({
-                host: account.smtp.host,
-                post: account.smtp.port,
-                secure: account.smtp.secure,
-                auth: {
-                    user: account.user,
-                    pass: account.pass,
-                }
-            });
+                const transporter = nodemailer.createTransport({
+                    host: account.smtp.host,
+                    port: account.smtp.port,
+                    secure: account.smtp.secure,
+                    auth: {
+                        user: account.user,
+                        pass: account.pass,
+                    }
+                });
 
-            this.client = transporter;
+                this.client = transporter;
 
-        }).catch(err => {
-            console.error(err);
-        })
+            }).catch(err => {
+                console.error(err);
+            })
     }
 
     async sendMail(to: string, subject: string, variables: any, path: string): Promise<void> {
@@ -40,8 +42,8 @@ class EtherealMailProvider implements IMailProvider {
             html: templateHTML
         });
 
-        console.log("Message sent: %s", message.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(message));
+        // console.log("Message sent: %s", message.messageId);
+        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(message));
     }
 }
 
