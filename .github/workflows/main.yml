@@ -19,10 +19,10 @@ jobs:
           node-version: 14.x
           
       - name: Install Dependencies
-        run: yarn
+        run: npm install
         
       - name: Build
-        run: yarn build
+        run: npm run build
         
       - uses: appleboy/scp-action@master
         with:
@@ -31,7 +31,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
-          target: "~/app/rentx"
+          target: ${{ secrets.PATH }}
           
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -41,7 +41,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/app/rentx
-            yarn
+            cd ${{ secrets.PATH }}
+            npm run
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx
