@@ -29,22 +29,21 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }}
-          passphrase: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}          
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
           target: ${{ secrets.PATH }}
           
-      - name: Update API
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ${{ secrets.PATH }}
-            nvm use v16.13.2
-            npm run 
-            ./node_modules/.bin/typeorm migration:run
-            pm2 restart rentx
+#       - name: Update API
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USER }}
+#           port: ${{ secrets.SSH_PORT }}
+#           key: ${{ secrets.SSH_KEY }}
+#           script: |
+#             cd ${{ secrets.PATH }}
+#             nvm use v16.13.2
+#             npm run 
+#             ./node_modules/.bin/typeorm migration:run
+#             pm2 restart rentx
