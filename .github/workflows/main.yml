@@ -17,15 +17,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      
-      - name: Version node
-        run: nvm use v16.13.2
-      
+            
       - name: Install Dependencies
-        run: npm install
+        run: yarn
         
       - name: Build
-        run: npm run build
+        run: yarn build
         
       - uses: appleboy/scp-action@master
         with:
@@ -45,6 +42,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ${{ secrets.PATH }}
-            npm run
+            nvm use v16.13.2
+            npm run 
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx
