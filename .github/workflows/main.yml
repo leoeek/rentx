@@ -32,7 +32,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
-          source: "., !node_modules"
+#           source: "., !node_modules"
           target: ${{ secrets.PATH }}
           
       - name: Update API
